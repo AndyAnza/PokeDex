@@ -1,0 +1,368 @@
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+  font-family: Arial, Helvetica, sans-serif;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* LAYOUT SETTINGS */
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: 5vh 90vh 5vh;
+  grid-template-areas:
+    "header header header"
+    "aside content content"
+    "footer footer footer";
+  min-height: 100vh;
+}
+
+@media screen and (max-width: 480px) {
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 5vh 15vh 75vh 5vh;
+    grid-template-areas:
+      "header"
+      "aside"
+      "content"
+      "footer";
+    min-height: 100vh;
+  }
+}
+
+.layout header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5vh;
+  grid-area: header;
+  background-color: rgb(242, 242, 245);
+}
+
+#button {
+  background-color: chocolate;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 0.5rem;
+}
+
+.layout aside {
+  grid-area: aside;
+  background-color: rgb(185, 175, 174);
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-content: center;
+}
+
+aside button {
+  color: white;
+  border: white solid 2px;
+  border-radius: 15px;
+  min-height: 30px;
+  width: 150px;
+  font-size: large;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+button:hover {
+  background-color: white;
+  color: black;
+  transform: scale(1.1);
+  transition: 0.2s;
+}
+
+@media screen and (max-width: 480px) {
+  .layout aside {
+    grid-area: aside;
+    background-color: rgb(185, 175, 174);
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-content: center;
+    min-width: 100vw;
+  }
+
+  aside button {
+    border-radius: 15px;
+    min-height: auto;
+    width: auto;
+    font-size: smaller;
+    font-weight: 500;
+  }
+}
+
+.layout main {
+  display: flex;
+  justify-content: center;
+  grid-area: content;
+  background-color: rgb(46, 47, 46);
+  overflow: auto;
+  padding: 15px 0;
+}
+
+/* SINGLE BIG POKEMON CARD */
+#pokeContainer {
+  border: white solid 2px;
+  border-radius: 8px;
+  background-color: aliceblue;
+  color: gray;
+  width: 30vw;
+  height: 40vh;
+  align-self: center;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 2fr 1fr 1fr;
+  grid-template-areas:
+    "image name"
+    "image types"
+    "number measures";
+}
+
+#pokeContainer p {
+  grid-area: number;
+  grid-row: 1/4;
+  grid-column: 1/3;
+  opacity: 5%;
+  font-size: 300px;
+  font-weight: 700;
+  color: black;
+}
+
+#pokeImage {
+  grid-area: image;
+  grid-row: 1/4;
+}
+
+#pokeImage img {
+  width: 95%;
+}
+
+#pokeContainer h1 {
+  grid-area: name;
+  font-weight: 700;
+  font-size: xx-large;
+  text-transform: capitalize;
+}
+
+.types {
+  grid-area: types;
+  border: white solid 2px;
+  border-radius: 15px;
+  padding: 2px;
+  color: darkgrey;
+  text-align: center;
+  font-size: x-large;
+  text-transform: capitalize;
+}
+
+.measures {
+  grid-area: measures;
+  font-size: large;
+}
+
+.measures,
+.types {
+  list-style-type: none;
+  padding: 0%;
+  display: flex;
+  align-self: flex-start;
+  align-content: center;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+@media screen and (max-width: 480px) {
+  #pokeContainer {
+    width: 80vw;
+    height: 60vh;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 7fr 1fr 1fr;
+    grid-template-areas:
+      "name"
+      "image"
+      "types"
+      "measures"
+      "number";
+  }
+
+  #pokeContainer p {
+    font-size: 170px;
+  }
+}
+
+/* ALL MINI CONTAINERS */
+
+#miniContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  width: 80%;
+}
+
+.mini-card {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  border: solid white 2px;
+  border-radius: 15px;
+  width: 280px;
+  height: 280px;
+  background-color: aliceblue;
+  font-size: x-large;
+  color: white;
+}
+
+.mini-card img {
+  width: 80%;
+}
+
+@media screen and (max-width: 480px) {
+  #miniContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .mini-card {
+    width: 140px;
+    height: 140px;
+    font-size: medium;
+  }
+}
+
+.layout footer {
+  grid-area: footer;
+  background-color: rgb(242, 242, 245);
+}
