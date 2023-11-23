@@ -99,6 +99,7 @@ const backgroundColorFunction = (type) => {
   }
 };
 
+//Fetch All pokemon Generation 1
 let pokedexStart = async (pokedex) => {
   const cardContainer = document.getElementById("content");
   cardContainer.innerHTML = "";
@@ -135,6 +136,7 @@ let pokedexStart = async (pokedex) => {
 };
 pokedexButton.addEventListener("click", () => pokedexStart(pokedex));
 
+//Fetch all pokemon by type Function
 const pokeTypeFunction = async (typeNum) => {
   const cardContainer = document.getElementById("content");
   cardContainer.innerHTML = "";
