@@ -103,6 +103,7 @@ const backgroundColorFunction = (type) => {
 let pokedexStart = async (pokedex) => {
   const cardContainer = document.getElementById("content");
   cardContainer.innerHTML = "";
+  cardContainer.style.display = "none";
   const miniCardContainer = document.getElementById("miniContainer");
   miniCardContainer.innerHTML = "";
   for (let i = 1; i <= pokedex; i++) {
