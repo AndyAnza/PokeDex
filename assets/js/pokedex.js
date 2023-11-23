@@ -1,3 +1,4 @@
+// all pokemon
 const pokedexButton = document.getElementById("buttonPokeDex");
 const cardContainer = document.getElementById("content");
 const normalBtn = document.getElementById("normalBtn");
@@ -21,7 +22,7 @@ const fairyBtn = document.getElementById("fairyBtn");
 let pokedex = 151;
 
 function addMiniCards(style, image, id, pokeName) {
-  const miniCard = document.createElement("div");
+  const miniCard = document.createElement("div"); //mini tarjetas
   miniCard.classList.add("mini-card"); // Optionally, add a class for styling
 
   miniCard.innerHTML = `
@@ -33,6 +34,7 @@ function addMiniCards(style, image, id, pokeName) {
 
   const miniCardContainer = document.getElementById("miniContainer");
   miniCardContainer.appendChild(miniCard);
+  miniCardContainer.style.display = "grid";
 }
 
 const backgroundColorFunction = (type) => {
@@ -98,7 +100,10 @@ const backgroundColorFunction = (type) => {
 };
 
 let pokedexStart = async (pokedex) => {
-  cardContainer.display = "none";
+  const cardContainer = document.getElementById("content");
+  cardContainer.innerHTML = "";
+  const miniCardContainer = document.getElementById("miniContainer");
+  miniCardContainer.innerHTML = "";
   for (let i = 1; i <= pokedex; i++) {
     try {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}/`);
@@ -131,6 +136,10 @@ let pokedexStart = async (pokedex) => {
 pokedexButton.addEventListener("click", () => pokedexStart(pokedex));
 
 const pokeTypeFunction = async (typeNum) => {
+  const cardContainer = document.getElementById("content");
+  cardContainer.innerHTML = "";
+  const miniCardContainer = document.getElementById("miniContainer");
+  miniCardContainer.innerHTML = "";
   try {
     const response = await fetch(`https://pokeapi.co/api/v2/type/${typeNum}`);
     if (!response.ok) {

@@ -225,6 +225,7 @@ button:hover {
   background-color: rgb(46, 47, 46);
   overflow: auto;
   padding: 15px 0;
+  align-content: center;
 }
 
 /* SINGLE BIG POKEMON CARD */

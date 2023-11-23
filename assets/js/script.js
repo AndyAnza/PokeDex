@@ -1,3 +1,4 @@
+//single pokemon browser
 const browserButton = document.getElementById("button");
 const input = document.getElementById("input");
 
@@ -20,6 +21,7 @@ function addCard(id, image, pokeName, style, type, weight, height) {
         `;
   const cardContainer = document.getElementById("content");
   cardContainer.innerHTML = card;
+  cardContainer.style.display = "block";
 }
 
 const getValue = () => {
@@ -29,6 +31,11 @@ const getValue = () => {
 };
 
 const pokemonBrowser = (pokemon) => {
+  const cardContainer = document.getElementById("content");
+  cardContainer.innerHTML = "";
+  const miniCardContainer = document.getElementById("miniContainer");
+  miniCardContainer.innerHTML = "";
+  miniCardContainer.style.display = "none";
   fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
     .then((response) => {
       if (!response.ok) {
