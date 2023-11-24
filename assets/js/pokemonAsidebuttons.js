@@ -21,91 +21,27 @@ const steelBtn = document.getElementById("steelBtn");
 const fairyBtn = document.getElementById("fairyBtn");
 let firstGenPokeNumber = 151;
 
-function addMiniCards(style, image, id, pokeName, rawPokeName) {
+function addMiniCards(image, id, pokeName, rawPokeName, type) {
   const miniCard = document.createElement("div"); //mini tarjetas
-  miniCard.classList.add("mini-card"); // Optionally, add a class for styling
+  miniCard.classList.add("mini-card");
+  miniCard.classList.add(`pokemonTypeColor-${type}`);
 
   miniCard.innerHTML = `
-  <div style="background-color:${style}">
     <img src=${image} class="pokemonContainer" data-pokemon-name=${rawPokeName}/>
     <h1><span>#${id}</span> ${pokeName}</h1>
-  </div>
     `;
 
   const miniCardContainer = document.getElementById("miniContainer");
   miniCardContainer.appendChild(miniCard);
-  miniCardContainer.style.display = "grid";
   const pokemonContainer = miniCard.querySelector(".pokemonContainer");
   pokemonContainer.addEventListener("click", redirectToPokemonInfo);
 }
 
-const backgroundColorFunction = (type) => {
-  switch (type) {
-    case "normal":
-      style = "#A8A878";
-      break;
-    case "fire":
-      style = "#F08030";
-      break;
-    case "water":
-      style = "#6890F0";
-      break;
-    case "electric":
-      style = "#F8D030";
-      break;
-    case "grass":
-      style = "#78C850";
-      break;
-    case "ice":
-      style = "#98D8D8";
-      break;
-    case "fighting":
-      style = "#C03028";
-      break;
-    case "poison":
-      style = "#A040A0";
-      break;
-    case "ground":
-      style = "#E0C068";
-      break;
-    case "flying":
-      style = "#A890F0";
-      break;
-    case "psychic":
-      style = "#F85888";
-      break;
-    case "bug":
-      style = "#A8B820";
-      break;
-    case "rock":
-      style = "#B8A038";
-      break;
-    case "ghost":
-      style = "#705898";
-      break;
-    case "dragon":
-      style = "#7038F8";
-      break;
-    case "dark":
-      style = "#705848";
-      break;
-    case "steel":
-      style = "#B8B8D0";
-      break;
-    case "fairy":
-      style = "#EE99AC";
-      break;
-    default:
-      style = "white";
-      break;
-  }
-};
-
 //Fetch All pokemon Generation 1
-let getFirstGen = async (firstGenPokeNumber) => {
+let getFirstGen = async (pokemon) => {
   const miniCardContainer = document.getElementById("miniContainer");
   miniCardContainer.innerHTML = "";
-  for (let i = 1; i <= firstGenPokeNumber; i++) {
+  for (let i = 1; i <= pokemon; i++) {
     try {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}/`);
       if (!response.ok) {
@@ -117,19 +53,12 @@ let getFirstGen = async (firstGenPokeNumber) => {
       }
       let id = data.id;
       id = addLeadingZeros(id, 3);
-
-      function capitalizeFirstLetter(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-      }
       let rawPokeName = data.name;
       let pokeName = data.name;
-      pokeName = capitalizeFirstLetter(pokeName);
-
       const image = data.sprites.other["official-artwork"].front_default;
       const type = data.types[0].type.name;
 
-      backgroundColorFunction(type);
-      addMiniCards(style, image, id, pokeName, rawPokeName);
+      addMiniCards(image, id, pokeName, rawPokeName, type);
     } catch (error) {
       console.error(error.message);
     }
@@ -138,7 +67,7 @@ let getFirstGen = async (firstGenPokeNumber) => {
 pokedexButton.addEventListener("click", () => getFirstGen(firstGenPokeNumber));
 
 //Fetch all pokemon by type Function
-const pokeTypeFunction = async (typeNum) => {
+const getPokemonByType = async (typeNum) => {
   const miniCardContainer = document.getElementById("miniContainer");
   miniCardContainer.innerHTML = "";
   try {
@@ -151,8 +80,6 @@ const pokeTypeFunction = async (typeNum) => {
     console.log(pokemonList);
     const pokemonNames = pokemonList.map((pokemon) => pokemon.pokemon.name);
     console.log(pokemonNames);
-    const pokemonUrls = pokemonList.map((pokemon) => pokemon.pokemon.url);
-    console.log(pokemonUrls);
     for (let i = 0; i < pokemonNames.length; i++) {
       const pokemonName = pokemonNames[i];
       console.log(pokemonName);
@@ -164,24 +91,17 @@ const pokeTypeFunction = async (typeNum) => {
           throw new Error(`Something went wrong with PokeApi`);
         }
         const data = await response.json();
+
         function addLeadingZeros(number, length) {
           return String(number).padStart(length, 0);
         }
         let id = data.id;
         id = addLeadingZeros(id, 3);
-
-        function capitalizeFirstLetter(string) {
-          return string.charAt(0).toUpperCase() + string.slice(1);
-        }
         let rawPokeName = data.name;
         let pokeName = data.name;
-        pokeName = capitalizeFirstLetter(pokeName);
-
         const image = data.sprites.other["official-artwork"].front_default;
         const type = data.types[0].type.name;
-
-        backgroundColorFunction(type);
-        addMiniCards(style, image, id, pokeName, rawPokeName);
+        addMiniCards(image, id, pokeName, rawPokeName, type);
       } catch (error) {
         console.error(error.message);
       }
@@ -191,24 +111,24 @@ const pokeTypeFunction = async (typeNum) => {
   }
 };
 
-normalBtn.addEventListener("click", () => pokeTypeFunction(1));
-fightingBtn.addEventListener("click", () => pokeTypeFunction(2));
-flyingBtn.addEventListener("click", () => pokeTypeFunction(3));
-poisonBtn.addEventListener("click", () => pokeTypeFunction(4));
-groundBtn.addEventListener("click", () => pokeTypeFunction(5));
-rockBtn.addEventListener("click", () => pokeTypeFunction(6));
-bugBtn.addEventListener("click", () => pokeTypeFunction(7));
-ghostBtn.addEventListener("click", () => pokeTypeFunction(8));
-steelBtn.addEventListener("click", () => pokeTypeFunction(9));
-fireBtn.addEventListener("click", () => pokeTypeFunction(10));
-waterBtn.addEventListener("click", () => pokeTypeFunction(11));
-grassBtn.addEventListener("click", () => pokeTypeFunction(12));
-electricBTn.addEventListener("click", () => pokeTypeFunction(13));
-psychicBtn.addEventListener("click", () => pokeTypeFunction(14));
-iceBtn.addEventListener("click", () => pokeTypeFunction(15));
-dragonBtn.addEventListener("click", () => pokeTypeFunction(16));
-darkBtn.addEventListener("click", () => pokeTypeFunction(17));
-fairyBtn.addEventListener("click", () => pokeTypeFunction(18));
+normalBtn.addEventListener("click", () => getPokemonByType(1));
+fightingBtn.addEventListener("click", () => getPokemonByType(2));
+flyingBtn.addEventListener("click", () => getPokemonByType(3));
+poisonBtn.addEventListener("click", () => getPokemonByType(4));
+groundBtn.addEventListener("click", () => getPokemonByType(5));
+rockBtn.addEventListener("click", () => getPokemonByType(6));
+bugBtn.addEventListener("click", () => getPokemonByType(7));
+ghostBtn.addEventListener("click", () => getPokemonByType(8));
+steelBtn.addEventListener("click", () => getPokemonByType(9));
+fireBtn.addEventListener("click", () => getPokemonByType(10));
+waterBtn.addEventListener("click", () => getPokemonByType(11));
+grassBtn.addEventListener("click", () => getPokemonByType(12));
+electricBTn.addEventListener("click", () => getPokemonByType(13));
+psychicBtn.addEventListener("click", () => getPokemonByType(14));
+iceBtn.addEventListener("click", () => getPokemonByType(15));
+dragonBtn.addEventListener("click", () => getPokemonByType(16));
+darkBtn.addEventListener("click", () => getPokemonByType(17));
+fairyBtn.addEventListener("click", () => getPokemonByType(18));
 
 const redirectToPokemonInfo = (event) => {
   const pokemonName = event.currentTarget.dataset.pokemonName;
