@@ -1,41 +1,32 @@
-//single pokemon browser
-const browserButton = document.getElementById("button");
-const input = document.getElementById("input");
+console.log(window.location.pathname);
+const pokemon = localStorage.getItem("Name");
+console.log(pokemon);
 
 function addCard(id, image, pokeName, style, type, weight, height) {
   const card = `
-          <div id="pokeContainer">
-            <div id='pokeImage'>
-              <img src=${image} />
+            <div id="pokeContainer">
+              <div id='pokeImage'>
+                <img src=${image} />
+              </div>
+              <p>#${id}</p>
+              <h1>${pokeName}</h1>
+              <ul class='types'>
+                <li style='background-color:${style}'>${type}</li>
+              </ul>
+              <ul class='measures'>
+                <li>Weight:${weight}kg</li>
+                <li>Height:${height}m</li>
+              </ul>
             </div>
-            <p>#${id}</p>
-            <h1>${pokeName}</h1>
-            <ul class='types'>
-              <li style='background-color:${style}'>${type}</li>
-            </ul>
-            <ul class='measures'>
-              <li>Weight:${weight}kg</li>
-              <li>Height:${height}m</li>
-            </ul>
-          </div>
-        `;
+          `;
   const cardContainer = document.getElementById("content");
   cardContainer.innerHTML = card;
   cardContainer.style.display = "block";
 }
 
-const getValue = () => {
-  let pokemon = document.getElementById("input").value;
-  pokemon = pokemon.toLowerCase().split().join();
-  pokemonBrowser(pokemon);
-};
-
-const pokemonBrowser = (pokemon) => {
+const createPokemonCard = (pokemon) => {
   const cardContainer = document.getElementById("content");
   cardContainer.innerHTML = "";
-  const miniCardContainer = document.getElementById("miniContainer");
-  miniCardContainer.innerHTML = "";
-  miniCardContainer.style.display = "none";
 
   fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
     .then((response) => {
@@ -174,9 +165,4 @@ const pokemonBrowser = (pokemon) => {
     .catch((error) => console.log(error.message));
 };
 
-browserButton.addEventListener("click", getValue);
-input.addEventListener("keydown", function (event) {
-  if (event.key === "Enter") {
-    getValue();
-  }
-});
+createPokemonCard(pokemon);

@@ -19,7 +19,7 @@ const dragonBtn = document.getElementById("dragonBtn");
 const darkBtn = document.getElementById("darkBtn");
 const steelBtn = document.getElementById("steelBtn");
 const fairyBtn = document.getElementById("fairyBtn");
-let pokedex = 151;
+let firstGenPokeNumber = 151;
 
 function addMiniCards(style, image, id, pokeName, rawPokeName) {
   const miniCard = document.createElement("div"); //mini tarjetas
@@ -102,13 +102,10 @@ const backgroundColorFunction = (type) => {
 };
 
 //Fetch All pokemon Generation 1
-let pokedexStart = async (pokedex) => {
-  // const cardContainer = document.getElementById("content");
-  // cardContainer.innerHTML = "";
-  cardContainer.style.display = "none";
+let getFirstGen = async (firstGenPokeNumber) => {
   const miniCardContainer = document.getElementById("miniContainer");
   miniCardContainer.innerHTML = "";
-  for (let i = 1; i <= pokedex; i++) {
+  for (let i = 1; i <= firstGenPokeNumber; i++) {
     try {
       const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}/`);
       if (!response.ok) {
@@ -138,12 +135,10 @@ let pokedexStart = async (pokedex) => {
     }
   }
 };
-pokedexButton.addEventListener("click", () => pokedexStart(pokedex));
+pokedexButton.addEventListener("click", () => getFirstGen(firstGenPokeNumber));
 
 //Fetch all pokemon by type Function
 const pokeTypeFunction = async (typeNum) => {
-  const cardContainer = document.getElementById("content");
-  cardContainer.innerHTML = "";
   const miniCardContainer = document.getElementById("miniContainer");
   miniCardContainer.innerHTML = "";
   try {
@@ -152,8 +147,6 @@ const pokeTypeFunction = async (typeNum) => {
       throw new Error(`pokeApi type is not working`);
     }
     const data = await response.json();
-    console.log(data);
-    console.log(data.name);
     let pokemonList = data.pokemon;
     console.log(pokemonList);
     const pokemonNames = pokemonList.map((pokemon) => pokemon.pokemon.name);
@@ -180,6 +173,7 @@ const pokeTypeFunction = async (typeNum) => {
         function capitalizeFirstLetter(string) {
           return string.charAt(0).toUpperCase() + string.slice(1);
         }
+        let rawPokeName = data.name;
         let pokeName = data.name;
         pokeName = capitalizeFirstLetter(pokeName);
 
@@ -187,7 +181,7 @@ const pokeTypeFunction = async (typeNum) => {
         const type = data.types[0].type.name;
 
         backgroundColorFunction(type);
-        addMiniCards(style, image, id, pokeName);
+        addMiniCards(style, image, id, pokeName, rawPokeName);
       } catch (error) {
         console.error(error.message);
       }
@@ -218,6 +212,9 @@ fairyBtn.addEventListener("click", () => pokeTypeFunction(18));
 
 const redirectToPokemonInfo = (event) => {
   const pokemonName = event.currentTarget.dataset.pokemonName;
-  console.log(pokemonName);
+  const modifiedName = pokemonName.slice(0, -1);
+  localStorage.setItem("Name", modifiedName);
   window.location.href = `pokemonInfo.html?name=${pokemonName}`;
 };
+
+getFirstGen(firstGenPokeNumber);
