@@ -21,13 +21,13 @@ const steelBtn = document.getElementById("steelBtn");
 const fairyBtn = document.getElementById("fairyBtn");
 let pokedex = 151;
 
-function addMiniCards(style, image, id, pokeName) {
+function addMiniCards(style, image, id, pokeName, rawPokeName) {
   const miniCard = document.createElement("div"); //mini tarjetas
   miniCard.classList.add("mini-card"); // Optionally, add a class for styling
 
   miniCard.innerHTML = `
   <div style="background-color:${style}">
-    <img src=${image} />
+    <img src=${image} class="pokemonContainer" data-pokemon-name=${rawPokeName}/>
     <h1><span>#${id}</span> ${pokeName}</h1>
   </div>
     `;
@@ -35,6 +35,8 @@ function addMiniCards(style, image, id, pokeName) {
   const miniCardContainer = document.getElementById("miniContainer");
   miniCardContainer.appendChild(miniCard);
   miniCardContainer.style.display = "grid";
+  const pokemonContainer = miniCard.querySelector(".pokemonContainer");
+  pokemonContainer.addEventListener("click", redirectToPokemonInfo);
 }
 
 const backgroundColorFunction = (type) => {
@@ -101,8 +103,8 @@ const backgroundColorFunction = (type) => {
 
 //Fetch All pokemon Generation 1
 let pokedexStart = async (pokedex) => {
-  const cardContainer = document.getElementById("content");
-  cardContainer.innerHTML = "";
+  // const cardContainer = document.getElementById("content");
+  // cardContainer.innerHTML = "";
   cardContainer.style.display = "none";
   const miniCardContainer = document.getElementById("miniContainer");
   miniCardContainer.innerHTML = "";
@@ -122,6 +124,7 @@ let pokedexStart = async (pokedex) => {
       function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
       }
+      let rawPokeName = data.name;
       let pokeName = data.name;
       pokeName = capitalizeFirstLetter(pokeName);
 
@@ -129,7 +132,7 @@ let pokedexStart = async (pokedex) => {
       const type = data.types[0].type.name;
 
       backgroundColorFunction(type);
-      addMiniCards(style, image, id, pokeName);
+      addMiniCards(style, image, id, pokeName, rawPokeName);
     } catch (error) {
       console.error(error.message);
     }
@@ -212,3 +215,9 @@ iceBtn.addEventListener("click", () => pokeTypeFunction(15));
 dragonBtn.addEventListener("click", () => pokeTypeFunction(16));
 darkBtn.addEventListener("click", () => pokeTypeFunction(17));
 fairyBtn.addEventListener("click", () => pokeTypeFunction(18));
+
+const redirectToPokemonInfo = (event) => {
+  const pokemonName = event.currentTarget.dataset.pokemonName;
+  console.log(pokemonName);
+  window.location.href = `pokemonInfo.html?name=${pokemonName}`;
+};

@@ -36,6 +36,7 @@ const pokemonBrowser = (pokemon) => {
   const miniCardContainer = document.getElementById("miniContainer");
   miniCardContainer.innerHTML = "";
   miniCardContainer.style.display = "none";
+
   fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
     .then((response) => {
       if (!response.ok) {
