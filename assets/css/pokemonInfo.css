@@ -160,7 +160,7 @@ table {
 
 .layout main {
   display: flex;
-  justify-content: center;
+
   grid-area: content;
   background-color: rgb(46, 47, 46);
   overflow: auto;
@@ -168,8 +168,19 @@ table {
   align-content: center;
 }
 
+#content {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  width: 100vw;
+  justify-content: center;
+  grid-template-areas:
+    "PokeContainer"
+    "EvolutionContainer";
+}
+
 /* SINGLE BIG POKEMON CARD */
 #pokeContainer {
+  grid-area: PokeContainer;
   border: white solid 2px;
   border-radius: 8px;
   background-color: aliceblue;
@@ -217,13 +228,18 @@ table {
 
 .types {
   grid-area: types;
-  border: white solid 2px;
-  border-radius: 15px;
-  padding: 2px;
-  color: darkgrey;
   text-align: center;
   font-size: x-large;
   text-transform: capitalize;
+}
+
+.types li {
+  border: white solid 2px;
+  border-radius: 30px;
+  color: white;
+  padding: 6px;
+  width: auto;
+  height: auto;
 }
 
 .measures {
@@ -259,4 +275,9 @@ table {
   #pokeContainer p {
     font-size: 170px;
   }
+}
+
+#evolutionChainContainer {
+  grid-area: EvolutionContainer;
+  background-color: white;
 }
