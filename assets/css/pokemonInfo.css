@@ -140,7 +140,7 @@ table {
   .layout {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 5vh 15vh 75vh 5vh;
+    grid-template-rows: 5vh 90vh 5vh;
     grid-template-areas:
       "header"
       "content"
