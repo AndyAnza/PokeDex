@@ -1,6 +1,6 @@
-console.log(window.location.pathname);
+// console.log(window.location.pathname);
 const pokemon = localStorage.getItem("Name");
-console.log(pokemon);
+// console.log(pokemon);
 
 function addCard(id, image, pokeName, type, type2, weight, height) {
   let card = `
@@ -14,7 +14,7 @@ function addCard(id, image, pokeName, type, type2, weight, height) {
         <li class='pokemonTypeColor-${type}'>${type}</li>`;
 
   if (type2 === null) {
-    console.log(`This pokemon does not have a second type`);
+    // console.log(`This pokemon does not have a second type`);
   } else {
     card += `<li class='pokemonTypeColor-${type2}'>${type2}</li>`;
   }
@@ -74,7 +74,7 @@ const createPokemonCard = (pokemon) => {
       return response.json();
     })
     .then((data) => {
-      console.log(data);
+      // console.log(data);
       const id = data.id;
       const image = data.sprites.other["official-artwork"].front_default;
       const pokeName = data.name;
@@ -85,8 +85,8 @@ const createPokemonCard = (pokemon) => {
         type2 = data.types[1].type.name;
       }
 
-      console.log(type);
-      console.log(type2);
+      // console.log(type);
+      // console.log(type2);
       let weight = data.weight;
       weight = weight * 0.1;
       weight = weight.toFixed(1);
@@ -106,7 +106,7 @@ const createPokemonCard = (pokemon) => {
       return response.json();
     })
     .then((data) => {
-      console.log("pokemon species data", data);
+      // console.log("pokemon species data", data);
       const evolution_chain = data.evolution_chain.url;
       return fetch(evolution_chain);
     })
@@ -117,25 +117,22 @@ const createPokemonCard = (pokemon) => {
       return response.json();
     })
     .then((data) => {
-      console.log("evolution chain data", data);
-      const evolutionOne = data.chain.species.name;
+      // console.log("evolution chain data", data);
 
+      let evolutionOne = data.chain.species.name;
       let evolutionTwo = null;
+      let evolutionThree = null;
+
       if (data.chain.evolves_to[0] !== undefined) {
         evolutionTwo = data.chain.evolves_to[0].species.name;
+        if (data.chain.evolves_to[0].evolves_to[0] !== undefined) {
+          evolutionThree = data.chain.evolves_to[0].evolves_to[0].species.name;
+        } else {
+          console.log("this pokemon doesnt have a third evolution");
+        }
       } else {
         console.log("this pokemon doesnt have a second evolution");
       }
-
-      let evolutionThree = null;
-      if (data.chain.evolves_to[0].evolves_to[0] !== undefined) {
-        evolutionThree = data.chain.evolves_to[0].evolves_to[0].species.name;
-      } else {
-        console.log("this pokemon doesnt have a third evolution");
-      }
-      console.log(evolutionOne);
-      console.log(evolutionTwo);
-      console.log(evolutionThree);
 
       if (evolutionTwo && evolutionThree !== null) {
         const fetchPromises = [
@@ -150,8 +147,11 @@ const createPokemonCard = (pokemon) => {
           fetch(`https://pokeapi.co/api/v2/pokemon/${evolutionTwo}`),
         ];
         return Promise.allSettled(fetchPromises);
-      } else {
-        return fetch(`https://pokeapi.co/api/v2/pokemon/${evolutionOne}`);
+      } else if (evolutionOne) {
+        const fetchPromises = [
+          fetch(`https://pokeapi.co/api/v2/pokemon/${evolutionOne}`),
+        ];
+        return Promise.allSettled(fetchPromises);
       }
     })
     .then((responses) => {
@@ -166,7 +166,7 @@ const createPokemonCard = (pokemon) => {
       return Promise.all(parsedResponses);
     })
     .then((data) => {
-      console.log(data);
+      // console.log(data);
       function bla(num) {
         for (let i = 0; i <= num; i++) {
           const evolutionData = data[i];
