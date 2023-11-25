@@ -201,7 +201,7 @@ table {
   border-radius: 8px;
   background-color: aliceblue;
   color: gray;
-  width: 60%;
+  width: 50%;
   height: 80%;
   align-self: flex-end;
   display: grid;
@@ -294,6 +294,46 @@ table {
   }
 }
 
+.statsContainer {
+  grid-area: "Stats";
+  border-radius: 8px;
+  background-color: rgb(63, 178, 224);
+  color: black;
+  width: 45%;
+  height: 80%;
+  align-self: flex-end;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  justify-self: start;
+  margin-left: 5%;
+}
+
+.statsContainer h2 {
+  color: white;
+  font-size: xx-large;
+  font-weight: 700;
+  padding-bottom: 20px;
+  align-self: center;
+}
+
+.statsList {
+  padding-left: 10%;
+}
+
+.statsList span {
+  color: white;
+  font-weight: 100;
+  font-size: 18px;
+  letter-spacing: 0.8;
+}
+
+.statsList li {
+  font-size: 18px;
+  font-weight: 400;
+}
+
 #evolutionChainContainer {
   grid-area: EvolutionContainer;
   grid-column-start: -3;
@@ -308,7 +348,7 @@ table {
   background-color: rgb(29, 29, 29);
   color: white;
   border-radius: 15px;
-  width: 60%;
+  width: 50%;
   height: 80%;
 }
 

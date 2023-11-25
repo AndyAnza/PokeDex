@@ -36,6 +36,42 @@ function addCard(id, image, pokeName, type, type2, weight, height) {
   cardContainer.innerHTML = card;
 }
 
+function addStatsCard(
+  hp,
+  attack,
+  defense,
+  specialAttack,
+  specialDefense,
+  speed
+) {
+  const content = document.getElementById("content"); //parent
+  const statsContainer = document.createElement("div"); //child
+  statsContainer.className = "statsContainer";
+  const statsContent = `    <h2>STATS</h2>
+    <ul class='statsList'>
+      <li>
+        <span>HP: </span>${hp}
+      </li>
+      <li>
+        <span>ATTACK: </span>${attack}
+      </li>
+      <li>
+        <span>DEFENSE: </span>${defense}
+      </li>
+      <li>
+        <span>SPECIAL ATTACK: </span>${specialAttack}
+      </li>
+      <li>
+        <span>SPECIAL DEFENSE: </span>${specialDefense}
+      </li>
+      <li>
+        <span>SPEED: </span>${speed}
+      </li>
+    </ul>`;
+  statsContainer.innerHTML = statsContent;
+  content.appendChild(statsContainer);
+}
+
 function addEvolutionCards(image, name, id, type, type2) {
   const evolutionChainContainer = document.getElementById(
     "evolutionChainContainer"
@@ -74,7 +110,7 @@ const createPokemonCard = (pokemon) => {
       return response.json();
     })
     .then((data) => {
-      // console.log(data);
+      console.log(data.name, data);
       const id = data.id;
       const image = data.sprites.other["official-artwork"].front_default;
       const pokeName = data.name;
@@ -85,8 +121,6 @@ const createPokemonCard = (pokemon) => {
         type2 = data.types[1].type.name;
       }
 
-      // console.log(type);
-      // console.log(type2);
       let weight = data.weight;
       weight = weight * 0.1;
       weight = weight.toFixed(1);
@@ -94,9 +128,18 @@ const createPokemonCard = (pokemon) => {
       height = height * 0.1;
       height = height.toFixed(1);
 
+      const hp = data.stats[0].base_stat;
+      const attack = data.stats[1].base_stat;
+      const defense = data.stats[2].base_stat;
+      const specialAttack = data.stats[3].base_stat;
+      const specialDefense = data.stats[4].base_stat;
+      const speed = data.stats[5].base_stat;
+
       const pokemonSpecies = data.species.url;
 
       addCard(id, image, pokeName, type, type2, weight, height);
+      addStatsCard(hp, attack, defense, specialAttack, specialDefense, speed);
+
       return fetch(pokemonSpecies);
     })
     .then((response) => {
