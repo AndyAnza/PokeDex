@@ -44,8 +44,10 @@ function addEvolutionCards(image, name, id, type, type2) {
   evolutionCard.className = "evolutionCard";
   let evolutionData = `
       <img src=${image}>
-      <h3>${name}</h3>
-      <h4>${id}</h4>
+      <div class='name_id'>
+        <h3>${name}</h3>
+        <h4>#${id}</h4>
+      </div>
       <ul class='type'>
         <li class='pokemonTypeColor-${type}'>${type}</li>`;
 
@@ -143,7 +145,11 @@ const createPokemonCard = (pokemon) => {
           const image =
             evolutionData.sprites.other["official-artwork"].front_default;
           const name = evolutionData.name;
-          const id = evolutionData.id;
+          function addLeadingZeros(number, length) {
+            return String(number).padStart(length, 0);
+          }
+          let id = evolutionData.id;
+          id = addLeadingZeros(id, 3);
           const type = evolutionData.types[0].type.name;
           let type2 = null;
 

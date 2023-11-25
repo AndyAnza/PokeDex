@@ -255,7 +255,7 @@ table {
   border-radius: 30px;
   color: white;
   padding: 6px;
-  width: auto;
+  width: 100px;
   height: auto;
 }
 
@@ -343,10 +343,22 @@ table {
   border-radius: 100vw;
 }
 
-.evolutionCard h3,
 .type li {
   text-transform: capitalize;
+  padding: 4px;
+  min-width: 60px;
 }
+.name_id h3 {
+  font-weight: 500;
+}
+
+.name_id {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 4px 0;
+  text-transform: capitalize;
+}
+
 .type {
   display: flex;
   justify-content: center;
