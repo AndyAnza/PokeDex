@@ -119,26 +119,54 @@ const createPokemonCard = (pokemon) => {
     .then((data) => {
       console.log("evolution chain data", data);
       const evolutionOne = data.chain.species.name;
-      const evolutionTwo = data.chain.evolves_to[0].species.name;
-      const evolutionThree =
-        data.chain.evolves_to[0].evolves_to[0].species.name;
-      return Promise.all([
-        fetch(`https://pokeapi.co/api/v2/pokemon/${evolutionOne}`),
-        fetch(`https://pokeapi.co/api/v2/pokemon/${evolutionTwo}`),
-        fetch(`https://pokeapi.co/api/v2/pokemon/${evolutionThree}`),
-      ]);
+
+      let evolutionTwo = null;
+      if (data.chain.evolves_to[0] !== undefined) {
+        evolutionTwo = data.chain.evolves_to[0].species.name;
+      } else {
+        console.log("this pokemon doesnt have a second evolution");
+      }
+
+      let evolutionThree = null;
+      if (data.chain.evolves_to[0].evolves_to[0] !== undefined) {
+        evolutionThree = data.chain.evolves_to[0].evolves_to[0].species.name;
+      } else {
+        console.log("this pokemon doesnt have a third evolution");
+      }
+      console.log(evolutionOne);
+      console.log(evolutionTwo);
+      console.log(evolutionThree);
+
+      if (evolutionTwo && evolutionThree !== null) {
+        const fetchPromises = [
+          fetch(`https://pokeapi.co/api/v2/pokemon/${evolutionOne}`),
+          fetch(`https://pokeapi.co/api/v2/pokemon/${evolutionTwo}`),
+          fetch(`https://pokeapi.co/api/v2/pokemon/${evolutionThree}`),
+        ];
+        return Promise.allSettled(fetchPromises);
+      } else if (evolutionTwo !== null) {
+        const fetchPromises = [
+          fetch(`https://pokeapi.co/api/v2/pokemon/${evolutionOne}`),
+          fetch(`https://pokeapi.co/api/v2/pokemon/${evolutionTwo}`),
+        ];
+        return Promise.allSettled(fetchPromises);
+      } else {
+        return fetch(`https://pokeapi.co/api/v2/pokemon/${evolutionOne}`);
+      }
     })
     .then((responses) => {
-      if (!responses[0].ok || !responses[1].ok || !responses[2].ok) {
-        throw new Error(`pokeApi evolution data not found`);
-      }
-      return Promise.all([
-        responses[0].json(),
-        responses[1].json(),
-        responses[2].json(),
-      ]);
+      const parsedResponses = responses.map((response) => {
+        if (response.status === "fulfilled") {
+          return response.value.json(); // Parse JSON for fulfilled promises
+        }
+        // Handle rejected promises if needed
+        return null; // For simplicity, returning null for rejected promises
+      });
+
+      return Promise.all(parsedResponses);
     })
     .then((data) => {
+      console.log(data);
       function bla(num) {
         for (let i = 0; i <= num; i++) {
           const evolutionData = data[i];
@@ -159,7 +187,7 @@ const createPokemonCard = (pokemon) => {
           addEvolutionCards(image, name, id, type, type2);
         }
       }
-      bla(2);
+      bla(8);
     })
 
     .catch((error) => console.error(error.message));
