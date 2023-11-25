@@ -27,9 +27,11 @@ function addCard(id, image, pokeName, type, type2, weight, height) {
       </ul>
     </div>
     <div id='evolutionChainContainer'>
-      <h2>Evolutions</h2>
     </div>
-`;
+    `;
+  // <div class='titleContainer'>
+  //   <h2>Evolutions</h2>
+  // </div>
   const cardContainer = document.getElementById("content");
   cardContainer.innerHTML = card;
 }
@@ -44,11 +46,11 @@ function addEvolutionCards(image, name, id, type, type2) {
       <img src=${image}>
       <h3>${name}</h3>
       <h4>${id}</h4>
-      <ul>
-        <li>${type}</li>`;
+      <ul class='type'>
+        <li class='pokemonTypeColor-${type}'>${type}</li>`;
 
   if (type2 !== null) {
-    evolutionData += `<li>${type2}</li>`;
+    evolutionData += `<li class='pokemonTypeColor-${type2}'>${type2}</li>`;
   } else {
     console.log(`this pokemon doesnt have a second type`);
   }
