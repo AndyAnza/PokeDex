@@ -269,17 +269,23 @@ button:hover {
 
 .mini-card h1 {
   text-transform: capitalize;
+  font-size: 1.25rem;
 }
 
+/* miniContainer and mini card for smartphones */
 @media screen and (max-width: 480px) {
   #miniContainer {
-    grid-template-columns: repeat(auto-fit, minmax(130px, 144px));
+    grid-template-columns: repeat(auto-fit, minmax(130px, 165px));
   }
 
   .mini-card {
     min-height: 170px;
     height: 180px;
     max-height: 180px;
+  }
+
+  .mini-card h1 {
+    font-size: 1rem;
   }
 }
 
