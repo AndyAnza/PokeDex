@@ -189,12 +189,17 @@ table {
   align-items: center;
 }
 
+/* content container for smarthphones */
 @media screen and (max-width: 480px) {
+  #columnMain {
+    width: 80vw;
+  }
+
   #content {
     display: grid;
     grid-template-rows: 2fr 1fr 3fr;
     grid-template-columns: 1fr;
-    width: 70vw;
+    width: 80vw;
     grid-template-areas:
       "PokeContainer"
       "Stats"
