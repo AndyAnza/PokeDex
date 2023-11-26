@@ -327,6 +327,7 @@ table {
   }
 
   #pokeImage img {
+    width: 40%;
     min-width: 30%;
     max-width: 40%;
     height: auto; /* Preserves the aspect ratio of the image */
@@ -342,6 +343,7 @@ table {
 
   .types li {
     padding: 4px;
+    width: 25%;
     min-width: 25%;
     max-width: 25%;
   }
@@ -483,8 +485,9 @@ table {
   }
 
   .evolutionCard img {
+    width: 28%;
     min-width: 20%;
-    max-width: 40%;
+    max-width: 28%;
     border: solid white 2px;
   }
 
