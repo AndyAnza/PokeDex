@@ -385,13 +385,13 @@ table {
 
   .statsContainer h2 {
     font-size: x-large;
-    font-weight: 600;
+    font-weight: 500;
     padding-bottom: 0px;
   }
 
   .statsList span {
     font-weight: 300;
-    font-size: large;
+    font-size: medium;
     letter-spacing: 0.7;
   }
 

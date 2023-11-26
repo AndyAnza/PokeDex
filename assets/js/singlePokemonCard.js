@@ -111,7 +111,11 @@ const createPokemonCard = (pokemon) => {
     })
     .then((data) => {
       console.log(data.name, data);
-      const id = data.id;
+      function addLeadingZeros(number, length) {
+        return String(number).padStart(length, 0);
+      }
+      let id = data.id;
+      id = addLeadingZeros(id, 3);
       const image = data.sprites.other["official-artwork"].front_default;
       const pokeName = data.name;
       const type = data.types[0].type.name;
