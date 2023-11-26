@@ -176,6 +176,7 @@ table {
   flex-direction: column;
   justify-content: space-evenly;
   align-content: center;
+  padding: 0px 4px 0px 4px;
 }
 
 aside button {
@@ -183,11 +184,14 @@ aside button {
   border: white solid 2px;
   border-radius: 15px;
   min-height: 30px;
-  width: 150px;
-  font-size: large;
+  width: 40%;
+  min-width: 20%;
+  max-width: 50%;
+  font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
   text-transform: uppercase;
+  overflow: hidden;
 }
 
 button:hover {
@@ -229,32 +233,37 @@ button:hover {
 }
 
 /* ALL MINI CONTAINERS */
-
 #miniContainer {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(130px, 300px));
   gap: 16px;
-  width: 80%;
+  width: 100%;
+  justify-content: center;
 }
 
 .mini-card {
   display: flex;
+  min-height: 130px;
+  height: 300px;
+  max-height: 300px;
   flex-wrap: wrap;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-content: center;
   text-align: center;
   border: solid white 2px;
   border-radius: 15px;
-  width: 280px;
-  height: 280px;
+  justify-items: stretch;
   background-color: aliceblue;
   font-size: x-large;
   color: white;
+  overflow: hidden;
 }
 
 .mini-card img {
+  min-width: 60%;
   width: 80%;
+  max-width: 80%;
   cursor: pointer;
 }
 
@@ -264,14 +273,13 @@ button:hover {
 
 @media screen and (max-width: 480px) {
   #miniContainer {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 144px));
   }
 
   .mini-card {
-    width: 140px;
-    height: 140px;
-    font-size: medium;
+    min-height: 170px;
+    height: 180px;
+    max-height: 180px;
   }
 }
 
