@@ -459,6 +459,7 @@ table {
 /* evolutionChain container for smartphone */
 @media screen and (max-width: 480px) {
   #evolutionChainContainer {
+    flex-wrap: nowrap;
     flex-direction: column;
     border-radius: 0px;
     width: 100%;
