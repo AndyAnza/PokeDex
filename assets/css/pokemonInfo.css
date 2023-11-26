@@ -136,6 +136,7 @@ table {
   min-height: 100vh;
 }
 
+/* layout for smartphones */
 @media screen and (max-width: 480px) {
   .layout {
     display: grid;
@@ -158,21 +159,28 @@ table {
   background-color: rgb(242, 242, 245);
 }
 
+/* have to fix this one */
 .layout main {
   display: flex;
-
   grid-area: content;
   background-color: rgb(46, 47, 46);
   overflow: auto;
-  padding: 15px 0;
   align-content: center;
+  justify-content: center;
+}
+
+#columnMain {
+  display: flex;
+  background-color: rgb(242, 242, 245);
+  width: 70vw;
+  height: 90vh;
 }
 
 #content {
   display: grid;
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr 1fr;
-  width: 100vw;
+  width: 70vw;
   grid-template-areas:
     "PokeContainer Stats"
     "EvolutionContainer EvolutionContainer";
@@ -184,24 +192,26 @@ table {
 @media screen and (max-width: 480px) {
   #content {
     display: grid;
-    grid-template-rows: 1fr 1fr 3fr;
+    grid-template-rows: 2fr 1fr 3fr;
     grid-template-columns: 1fr;
-    width: 100vw;
+    width: 70vw;
     grid-template-areas:
       "PokeContainer"
       "Stats"
       "EvolutionContainer";
+    justify-items: center;
+    align-items: center;
+    justify-content: center;
   }
 }
 
 /* SINGLE BIG POKEMON CARD */
 #pokeContainer {
   grid-area: PokeContainer;
-  border: white solid 2px;
   border-radius: 8px;
   background-color: aliceblue;
   color: gray;
-  width: 50%;
+  width: 65%;
   height: 80%;
   align-self: flex-end;
   display: grid;
@@ -215,16 +225,20 @@ table {
     "image name"
     "image types"
     "number measures";
+  overflow: hidden;
 }
 
 #pokeContainer p {
   grid-area: number;
-  grid-row: 1/4;
-  grid-column: 1/3;
-  opacity: 5%;
-  font-size: 300px;
+  /* grid-row: 1 / span 3;
+  grid-column: 1 / span 3;
+  font-size: 125px; */
+  font-size: xx-large;
+  opacity: 50%;
   font-weight: 700;
   color: black;
+  width: 100%;
+  text-align: center;
 }
 
 #pokeImage {
@@ -275,10 +289,12 @@ table {
   width: 100%;
 }
 
+/* pokeContainer smartphones */
 @media screen and (max-width: 480px) {
   #pokeContainer {
-    width: 80vw;
-    height: 60vh;
+    grid-area: PokeContainer;
+    width: 100%;
+    height: 100%;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 7fr 1fr 1fr;
     grid-template-areas:
@@ -289,17 +305,40 @@ table {
       "number";
   }
 
+  #pokeContainer h1 {
+    font-size: x-large;
+    padding-top: 4px;
+  }
+
+  #pokeImage img {
+    width: 48%;
+  }
+
+  .types {
+    font-size: large;
+  }
+
+  .types li {
+    padding: 4px;
+    width: 80px;
+  }
+
+  .measures {
+    font-size: medium;
+  }
+
   #pokeContainer p {
-    font-size: 170px;
+    font-size: medium;
+    padding-bottom: 4px;
   }
 }
 
 .statsContainer {
-  grid-area: "Stats";
+  grid-area: Stats;
   border-radius: 8px;
   background-color: rgb(63, 178, 224);
   color: black;
-  width: 45%;
+  width: 60%;
   height: 80%;
   align-self: flex-end;
   display: flex;
@@ -308,6 +347,7 @@ table {
   justify-content: center;
   justify-self: start;
   margin-left: 5%;
+  overflow: hidden;
 }
 
 .statsContainer h2 {
@@ -348,26 +388,28 @@ table {
   background-color: rgb(29, 29, 29);
   color: white;
   border-radius: 15px;
-  width: 50%;
+  width: 65%;
   height: 80%;
+  overflow: hidden;
+}
+
+/* stats container for smartphone */
+@media screen and (max-width: 480px) {
+  .statsContainer {
+    width: 100%;
+    height: 100%;
+    margin-left: 0%;
+    border-radius: 0px;
+  }
 }
 
 @media screen and (max-width: 480px) {
   #evolutionChainContainer {
-    grid-area: EvolutionContainer;
-    grid-column-start: -3;
-    grid-column-end: -1;
-    display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    align-content: center;
-    align-self: center;
-    text-align: center;
-    background-color: rgb(29, 29, 29);
-    color: white;
-    border-radius: 15px;
-    width: 60%;
-    height: 80%;
+    border-radius: 0px;
+    width: 100%;
+    height: 100%;
   }
 }
 .titleContainer {
