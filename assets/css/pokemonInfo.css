@@ -192,14 +192,14 @@ table {
 /* content container for smarthphones */
 @media screen and (max-width: 480px) {
   #columnMain {
-    width: 80vw;
+    width: 85vw;
   }
 
   #content {
     display: grid;
-    grid-template-rows: 2fr 1fr 3fr;
+    grid-template-rows: 2fr 1fr 4fr;
     grid-template-columns: 1fr;
-    width: 80vw;
+    width: 85vw;
     grid-template-areas:
       "PokeContainer"
       "Stats"
@@ -311,29 +311,42 @@ table {
   }
 
   #pokeContainer h1 {
-    font-size: x-large;
+    font-size: 1.25rem;
     padding-top: 4px;
   }
 
-  #pokeImage img {
-    width: 48%;
+  #pokeImage {
+    display: grid;
+    grid-row: 2/3;
+    max-width: 100%;
+    max-height: 100%;
+    min-height: 100%;
+    /* background-color: red; */
+    overflow: hidden;
+    align-items: center;
   }
 
-  .types {
-    font-size: large;
+  #pokeImage img {
+    min-width: 30%;
+    max-width: 40%;
+    height: auto; /* Preserves the aspect ratio of the image */
+    display: block; /* Optional: Ensures proper spacing around the image */
+    margin: 0 auto;
+  }
+
+  .types,
+  .measures,
+  #pokeContainer p {
+    font-size: 1rem;
   }
 
   .types li {
     padding: 4px;
-    width: 80px;
-  }
-
-  .measures {
-    font-size: medium;
+    min-width: 25%;
+    max-width: 25%;
   }
 
   #pokeContainer p {
-    font-size: medium;
     padding-bottom: 4px;
   }
 }
@@ -382,26 +395,29 @@ table {
 /* stats container for smartphone */
 @media screen and (max-width: 480px) {
   .statsContainer {
-    width: 100%;
-    height: 100%;
+    box-sizing: border-box;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 100%;
+    max-height: 100%;
     margin-left: 0%;
     border-radius: 0px;
   }
 
   .statsContainer h2 {
-    font-size: x-large;
-    font-weight: 500;
+    font-weight: 600;
     padding-bottom: 0px;
   }
 
   .statsList span {
     font-weight: 300;
-    font-size: medium;
     letter-spacing: 0.7;
   }
 
+  .statsContainer h2,
+  .statsList span,
   .statsList li {
-    font-size: medium;
+    font-size: 1rem;
   }
 }
 
@@ -467,17 +483,19 @@ table {
   }
 
   .evolutionCard img {
-    width: 25%;
+    min-width: 20%;
+    max-width: 40%;
     border: solid white 2px;
   }
 
-  .name_id {
-    font-size: medium;
+  .name_id,
+  .type li {
+    font-size: 0.875rem;
   }
 
   .type li {
     padding: 2px;
-    min-width: 60px;
-    font-size: medium;
+    min-width: 25%;
+    max-width: 25%;
   }
 }
