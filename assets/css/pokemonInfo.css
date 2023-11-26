@@ -374,6 +374,32 @@ table {
   font-weight: 400;
 }
 
+/* stats container for smartphone */
+@media screen and (max-width: 480px) {
+  .statsContainer {
+    width: 100%;
+    height: 100%;
+    margin-left: 0%;
+    border-radius: 0px;
+  }
+
+  .statsContainer h2 {
+    font-size: x-large;
+    font-weight: 600;
+    padding-bottom: 0px;
+  }
+
+  .statsList span {
+    font-weight: 300;
+    font-size: large;
+    letter-spacing: 0.7;
+  }
+
+  .statsList li {
+    font-size: medium;
+  }
+}
+
 #evolutionChainContainer {
   grid-area: EvolutionContainer;
   grid-column-start: -3;
@@ -392,33 +418,12 @@ table {
   height: 80%;
   overflow: hidden;
 }
-
-/* stats container for smartphone */
-@media screen and (max-width: 480px) {
-  .statsContainer {
-    width: 100%;
-    height: 100%;
-    margin-left: 0%;
-    border-radius: 0px;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  #evolutionChainContainer {
-    flex-direction: column;
-    justify-content: space-evenly;
-    border-radius: 0px;
-    width: 100%;
-    height: 100%;
-  }
-}
 .titleContainer {
   text-align: center;
   display: flex;
   flex-direction: column;
 }
-.evolutionCard {
-}
+
 .evolutionCard img {
   width: 8vw;
   border: solid white 4px;
@@ -444,4 +449,29 @@ table {
 .type {
   display: flex;
   justify-content: center;
+}
+
+/* evolutionChain container for smartphone */
+@media screen and (max-width: 480px) {
+  #evolutionChainContainer {
+    flex-direction: column;
+    border-radius: 0px;
+    width: 100%;
+    height: 100%;
+  }
+
+  .evolutionCard img {
+    width: 25%;
+    border: solid white 2px;
+  }
+
+  .name_id {
+    font-size: medium;
+  }
+
+  .type li {
+    padding: 2px;
+    min-width: 60px;
+    font-size: medium;
+  }
 }
