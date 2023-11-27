@@ -73,14 +73,14 @@ const filterPokemonByName = async (pokemonNameOrId) => {
     console.error(error);
   }
 };
-buttonSearchBar.addEventListener("click", () => {
-  (function (event) {
-    event.preventDefault();
-  })();
+buttonSearchBar.addEventListener("click", (event) => {
+  event.preventDefault();
   filterPokemonByName(getSearchBarValue());
 });
+
 inputSearchBar.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
+    event.preventDefault();
     filterPokemonByName(getSearchBarValue());
   }
 });
