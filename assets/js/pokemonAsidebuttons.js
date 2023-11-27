@@ -57,17 +57,19 @@ const getSearchBarValue = () => {
 const filterPokemonByName = async (pokemonNameOrId) => {
   const miniCardContainer = document.getElementById("miniContainer");
   miniCardContainer.innerHTML = "";
-  fetchAndCreatePokemonCard(pokemonNameOrId);
+  await fetchAndCreatePokemonCard(pokemonNameOrId);
 };
 
 buttonSearchBar.addEventListener("click", (event) => {
   event.preventDefault();
+  event.stopPropagation();
   filterPokemonByName(getSearchBarValue());
 });
 
 inputSearchBar.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
     event.preventDefault();
+    event.stopPropagation();
     filterPokemonByName(getSearchBarValue());
   }
 });
@@ -77,19 +79,20 @@ const getFirstGen = async (pokemon) => {
   const miniCardContainer = document.getElementById("miniContainer");
   miniCardContainer.innerHTML = "";
   for (let i = 1; i <= pokemon; i++) {
-    fetchAndCreatePokemonCard(i);
+    await fetchAndCreatePokemonCard(i);
   }
 };
 firstGenBtn.addEventListener("click", (event) => {
   event.preventDefault();
+  event.stopPropagation();
   getFirstGen(firstGenPokeNumber);
 });
 
 //Fetch all pokemon by type Function
 const getPokemonByType = async (typeNum) => {
-  const miniCardContainer = document.getElementById("miniContainer");
-  miniCardContainer.innerHTML = "";
   try {
+    const miniCardContainer = document.getElementById("miniContainer");
+    miniCardContainer.innerHTML = "";
     const response = await fetch(`https://pokeapi.co/api/v2/type/${typeNum}`);
     if (!response.ok) {
       throw new Error(`pokeApi type is not working`);
@@ -102,7 +105,7 @@ const getPokemonByType = async (typeNum) => {
     for (let i = 0; i < pokemonNames.length; i++) {
       const pokemonName = pokemonNames[i];
       console.log(pokemonName);
-      fetchAndCreatePokemonCard(pokemonName);
+      await fetchAndCreatePokemonCard(pokemonName);
     }
   } catch (error) {
     console.log(error.message);
@@ -112,6 +115,7 @@ const getPokemonByType = async (typeNum) => {
 function typeButtonConstructorAndHandler(buttonName, type) {
   const button = document.getElementById(buttonName);
   button.addEventListener("click", async (event) => {
+    event.preventDefault();
     event.stopPropagation();
     try {
       await getPokemonByType(type);
