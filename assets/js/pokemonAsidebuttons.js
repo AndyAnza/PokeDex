@@ -1,24 +1,5 @@
-// all pokemon
-const pokedexButton = document.getElementById("buttonPokeDex");
+const firstGenBtn = document.getElementById("buttonPokeDex");
 const cardContainer = document.getElementById("content");
-const normalBtn = document.getElementById("normalBtn");
-const fireBtn = document.getElementById("fireBtn");
-const waterBtn = document.getElementById("waterBtn");
-const electricBTn = document.getElementById("electricBTn");
-const grassBtn = document.getElementById("grassBtn");
-const iceBtn = document.getElementById("iceBtn");
-const fightingBtn = document.getElementById("fightingBtn");
-const poisonBtn = document.getElementById("poisonBtn");
-const groundBtn = document.getElementById("groundBtn");
-const flyingBtn = document.getElementById("flyingBtn");
-const psychicBtn = document.getElementById("psychicBtn");
-const bugBtn = document.getElementById("bugBtn");
-const rockBtn = document.getElementById("rockBtn");
-const ghostBtn = document.getElementById("ghostBtn");
-const dragonBtn = document.getElementById("dragonBtn");
-const darkBtn = document.getElementById("darkBtn");
-const steelBtn = document.getElementById("steelBtn");
-const fairyBtn = document.getElementById("fairyBtn");
 const buttonSearchBar = document.getElementById("buttonSearchBar");
 const inputSearchBar = document.getElementById("inputSearchBar");
 let firstGenPokeNumber = 151;
@@ -39,6 +20,32 @@ function addMiniCards(image, id, pokeName, rawPokeName, type) {
   pokemonContainer.addEventListener("click", redirectToPokemonInfo);
 }
 
+const fetchAndCreatePokemonCard = async (pokemonNameOrId) => {
+  try {
+    const response = await fetch(
+      `https://pokeapi.co/api/v2/pokemon/${pokemonNameOrId}`
+    );
+    if (!response.ok) {
+      throw new Error(`Something went wrong with fetching Pokemon data`);
+    }
+    const data = await response.json();
+
+    function addLeadingZeros(number, length) {
+      return String(number).padStart(length, 0);
+    }
+
+    const id = addLeadingZeros(data.id, 3);
+    const rawPokeName = data.name;
+    const pokeName = data.name;
+    const image = data.sprites.other["official-artwork"].front_default;
+    const type = data.types[0].type.name;
+
+    addMiniCards(image, id, pokeName, rawPokeName, type);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const getSearchBarValue = () => {
   const inputSearchBar = document.getElementById("inputSearchBar");
   let inputValue = inputSearchBar.value;
@@ -50,29 +57,9 @@ const getSearchBarValue = () => {
 const filterPokemonByName = async (pokemonNameOrId) => {
   const miniCardContainer = document.getElementById("miniContainer");
   miniCardContainer.innerHTML = "";
-  try {
-    const response = await fetch(
-      `https://pokeapi.co/api/v2/pokemon/${pokemonNameOrId}`
-    );
-    if (!response.ok) {
-      throw new Error(`something went wrong with searchBar fetch`);
-    }
-    const data = await response.json();
-    console.log(`inputPokemon: `, data);
-    function addLeadingZeros(number, length) {
-      return String(number).padStart(length, 0);
-    }
-    let id = data.id;
-    id = addLeadingZeros(id, 3);
-    let rawPokeName = data.name;
-    let pokeName = data.name;
-    const image = data.sprites.other["official-artwork"].front_default;
-    const type = data.types[0].type.name;
-    addMiniCards(image, id, pokeName, rawPokeName, type);
-  } catch (error) {
-    console.error(error);
-  }
+  fetchAndCreatePokemonCard(pokemonNameOrId);
 };
+
 buttonSearchBar.addEventListener("click", (event) => {
   event.preventDefault();
   filterPokemonByName(getSearchBarValue());
@@ -86,33 +73,17 @@ inputSearchBar.addEventListener("keydown", (event) => {
 });
 
 //Fetch All pokemon Generation 1
-let getFirstGen = async (pokemon) => {
+const getFirstGen = async (pokemon) => {
   const miniCardContainer = document.getElementById("miniContainer");
   miniCardContainer.innerHTML = "";
   for (let i = 1; i <= pokemon; i++) {
-    try {
-      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}/`);
-      if (!response.ok) {
-        throw new Error(`Something went wrong with PokeApi`);
-      }
-      const data = await response.json();
-      function addLeadingZeros(number, length) {
-        return String(number).padStart(length, 0);
-      }
-      let id = data.id;
-      id = addLeadingZeros(id, 3);
-      let rawPokeName = data.name;
-      let pokeName = data.name;
-      const image = data.sprites.other["official-artwork"].front_default;
-      const type = data.types[0].type.name;
-
-      addMiniCards(image, id, pokeName, rawPokeName, type);
-    } catch (error) {
-      console.error(error.message);
-    }
+    fetchAndCreatePokemonCard(i);
   }
 };
-pokedexButton.addEventListener("click", () => getFirstGen(firstGenPokeNumber));
+firstGenBtn.addEventListener("click", (event) => {
+  event.preventDefault();
+  getFirstGen(firstGenPokeNumber);
+});
 
 //Fetch all pokemon by type Function
 const getPokemonByType = async (typeNum) => {
@@ -131,53 +102,50 @@ const getPokemonByType = async (typeNum) => {
     for (let i = 0; i < pokemonNames.length; i++) {
       const pokemonName = pokemonNames[i];
       console.log(pokemonName);
-      try {
-        const response = await fetch(
-          `https://pokeapi.co/api/v2/pokemon/${pokemonName}/`
-        );
-        if (!response.ok) {
-          throw new Error(`Something went wrong with PokeApi`);
-        }
-        const data = await response.json();
-
-        function addLeadingZeros(number, length) {
-          return String(number).padStart(length, 0);
-        }
-        let id = data.id;
-        id = addLeadingZeros(id, 3);
-        let rawPokeName = data.name;
-        let pokeName = data.name;
-        const image = data.sprites.other["official-artwork"].front_default;
-        const type = data.types[0].type.name;
-        addMiniCards(image, id, pokeName, rawPokeName, type);
-      } catch (error) {
-        console.error(error.message);
-      }
+      fetchAndCreatePokemonCard(pokemonName);
     }
   } catch (error) {
     console.log(error.message);
   }
 };
 
-normalBtn.addEventListener("click", () => getPokemonByType(1));
-fightingBtn.addEventListener("click", () => getPokemonByType(2));
-flyingBtn.addEventListener("click", () => getPokemonByType(3));
-poisonBtn.addEventListener("click", () => getPokemonByType(4));
-groundBtn.addEventListener("click", () => getPokemonByType(5));
-rockBtn.addEventListener("click", () => getPokemonByType(6));
-bugBtn.addEventListener("click", () => getPokemonByType(7));
-ghostBtn.addEventListener("click", () => getPokemonByType(8));
-steelBtn.addEventListener("click", () => getPokemonByType(9));
-fireBtn.addEventListener("click", () => getPokemonByType(10));
-waterBtn.addEventListener("click", () => getPokemonByType(11));
-grassBtn.addEventListener("click", () => getPokemonByType(12));
-electricBTn.addEventListener("click", () => getPokemonByType(13));
-psychicBtn.addEventListener("click", () => getPokemonByType(14));
-iceBtn.addEventListener("click", () => getPokemonByType(15));
-dragonBtn.addEventListener("click", () => getPokemonByType(16));
-darkBtn.addEventListener("click", () => getPokemonByType(17));
-fairyBtn.addEventListener("click", () => getPokemonByType(18));
+function typeButtonConstructorAndHandler(buttonName, type) {
+  const button = document.getElementById(buttonName);
+  button.addEventListener("click", async (event) => {
+    event.stopPropagation();
+    try {
+      await getPokemonByType(type);
+    } catch (error) {
+      console.error(error);
+    }
+  });
+}
 
+const typeInfoArray = [
+  ["normalBtn", 1],
+  ["fightingBtn", 2],
+  ["flyingBtn", 3],
+  ["poisonBtn", 4],
+  ["groundBtn", 5],
+  ["rockBtn", 6],
+  ["bugBtn", 7],
+  ["ghostBtn", 8],
+  ["steelBtn", 9],
+  ["fireBtn", 10],
+  ["waterBtn", 11],
+  ["grassBtn", 12],
+  ["electricBtn", 13],
+  ["psychicBtn", 14],
+  ["iceBtn", 15],
+  ["dragonBtn", 16],
+  ["darkBtn", 17],
+  ["fairyBtn", 18],
+];
+typeInfoArray.forEach(([name, id]) => {
+  typeButtonConstructorAndHandler(name, id);
+});
+
+//redirects to single pokemon card page
 const redirectToPokemonInfo = (event) => {
   const pokemonName = event.currentTarget.dataset.pokemonName;
   const modifiedName = pokemonName.slice(0, -1);
@@ -185,4 +153,5 @@ const redirectToPokemonInfo = (event) => {
   window.location.href = `pokemonInfo.html?name=${pokemonName}`;
 };
 
+//loads first gen card by default
 getFirstGen(firstGenPokeNumber);
