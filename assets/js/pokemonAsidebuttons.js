@@ -19,6 +19,8 @@ const dragonBtn = document.getElementById("dragonBtn");
 const darkBtn = document.getElementById("darkBtn");
 const steelBtn = document.getElementById("steelBtn");
 const fairyBtn = document.getElementById("fairyBtn");
+const buttonSearchBar = document.getElementById("buttonSearchBar");
+const inputSearchBar = document.getElementById("inputSearchBar");
 let firstGenPokeNumber = 151;
 
 function addMiniCards(image, id, pokeName, rawPokeName, type) {
@@ -36,6 +38,52 @@ function addMiniCards(image, id, pokeName, rawPokeName, type) {
   const pokemonContainer = miniCard.querySelector(".pokemonContainer");
   pokemonContainer.addEventListener("click", redirectToPokemonInfo);
 }
+
+const getSearchBarValue = () => {
+  const inputSearchBar = document.getElementById("inputSearchBar");
+  let inputValue = inputSearchBar.value;
+  inputValue = inputValue.toLowerCase().split().join();
+  console.log(`inputValiue: `, inputValue);
+  return inputValue;
+};
+//Fetch pokemon by name or id
+const filterPokemonByName = async (pokemonNameOrId) => {
+  const miniCardContainer = document.getElementById("miniContainer");
+  miniCardContainer.innerHTML = "";
+  try {
+    const response = await fetch(
+      `https://pokeapi.co/api/v2/pokemon/${pokemonNameOrId}`
+    );
+    if (!response.ok) {
+      throw new Error(`something went wrong with searchBar fetch`);
+    }
+    const data = await response.json();
+    console.log(`inputPokemon: `, data);
+    function addLeadingZeros(number, length) {
+      return String(number).padStart(length, 0);
+    }
+    let id = data.id;
+    id = addLeadingZeros(id, 3);
+    let rawPokeName = data.name;
+    let pokeName = data.name;
+    const image = data.sprites.other["official-artwork"].front_default;
+    const type = data.types[0].type.name;
+    addMiniCards(image, id, pokeName, rawPokeName, type);
+  } catch (error) {
+    console.error(error);
+  }
+};
+buttonSearchBar.addEventListener("click", () => {
+  (function (event) {
+    event.preventDefault();
+  })();
+  filterPokemonByName(getSearchBarValue());
+});
+inputSearchBar.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    filterPokemonByName(getSearchBarValue());
+  }
+});
 
 //Fetch All pokemon Generation 1
 let getFirstGen = async (pokemon) => {
