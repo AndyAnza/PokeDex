@@ -151,12 +151,14 @@ table {
 }
 
 .layout header {
-  display: flex;
+  display: grid;
   justify-content: center;
   align-items: center;
   height: 5vh;
   grid-area: header;
   background-color: rgb(242, 242, 245);
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas: ". home .";
 }
 
 /* have to fix this one */
