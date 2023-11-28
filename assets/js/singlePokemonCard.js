@@ -86,7 +86,6 @@ function addEvolutionCards(image, name, id, type, type2) {
       </div>
       <ul class='type'>
         <li class='pokemonTypeColor-${type}'>${type}</li>`;
-
   if (type2 !== null) {
     evolutionData += `<li class='pokemonTypeColor-${type2}'>${type2}</li>`;
   } else {

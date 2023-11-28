@@ -128,12 +128,12 @@ table {
 
 .layout {
   display: grid;
-  grid-template-columns: 1fr 4fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 5vh 90vh 5vh;
   grid-template-areas:
-    "header header header"
-    "aside content content"
-    "footer footer footer";
+    "header header header header"
+    "aside content content content"
+    "footer footer footer footer";
   min-height: 100vh;
 }
 
@@ -152,13 +152,41 @@ table {
 }
 
 .layout header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
   height: 5vh;
   grid-area: header;
   background-color: rgb(242, 242, 245);
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr;
+  grid-template-areas: "home . searchBar .";
+  justify-content: center;
+  align-items: center;
 }
+
+/*  */
+#browser {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 2vh;
+  align-content: center;
+  grid-area: searchBar;
+  width: 100%;
+}
+
+#inputSearchBar {
+  margin-right: 6px;
+}
+
+#buttonSearchBar {
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  font-weight: 600;
+}
+
+/*  */
 
 #button {
   background-color: chocolate;

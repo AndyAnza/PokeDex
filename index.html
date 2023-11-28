@@ -5,37 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./assets/css/style.css"></style>
     <link rel="stylesheet" href="./assets/css/typeColor.css"></style>
+    <link rel="stylesheet" href="./assets/css/homeBtn.css"></style>
     <title>PokeDex</title>
   </head>
   <body>
     <div class="layout">
       <header>
-        <a href="/">Home</a>
+        <a class="fancy" href="/">
+          <span class="top-key"></span>
+          <span class="text">Home</span>
+          <span class="bottom-key-1"></span>
+          <span class="bottom-key-2"></span>
+        </a>
         <div id="browser">
-          <input placeholder="pokemon name" id="inputSearchBar"></input>
+          <input placeholder="name or number" id="inputSearchBar"></input>
           <button id="buttonSearchBar">enter</button>
         </div>
       </header>
       <aside>
         <button id="buttonPokeDex">Generation I</button>
-        <button style="background-color:#A8A878" id="normalBtn">Normal</button>
-        <button style="background-color:#F08030"id="fireBtn">Fire</button>
-        <button style="background-color:#6890F0"id="waterBtn">Water</button>
-        <button style="background-color:#F8D030"id="electricBtn">Electric</button>
-        <button style="background-color:#78C850"id="grassBtn">Grass</button>
-        <button style="background-color:#98D8D8"id="iceBtn">Ice</button>
-        <button style="background-color:#C03028"id="fightingBtn">Fighting</button>
-        <button style="background-color:#A040A0"id="poisonBtn">Poison</button>
-        <button style="background-color:#E0C068"id="groundBtn">Ground</button>
-        <button style="background-color:#A890F0"id="flyingBtn">Flying</button>
-        <button style="background-color:#F85888"id="psychicBtn">Psychic</button>
-        <button style="background-color:#A8B820"id="bugBtn">Bug</button>
-        <button style="background-color:#B8A038"id="rockBtn">Rock</button>
-        <button style="background-color:#705898"id="ghostBtn">Ghost</button>
-        <button style="background-color:#7038F8"id="dragonBtn">Dragon</button>
-        <button style="background-color:#705848"id="darkBtn">Dark</button>
-        <button style="background-color:#B8B8D0"id="steelBtn">Steel</button>
-        <button style="background-color:#EE99AC"id="fairyBtn">Fairy</button>
+        <button class="pokemonTypeColor-normal" id="normalBtn">Normal</button>
+        <button class="pokemonTypeColor-fire"id="fireBtn">Fire</button>
+        <button class="pokemonTypeColor-water "id="waterBtn">Water</button>
+        <button class="pokemonTypeColor-electric"id="electricBtn">Electric</button>
+        <button class="pokemonTypeColor-grass"id="grassBtn">Grass</button>
+        <button class="pokemonTypeColor-ice"id="iceBtn">Ice</button>
+        <button class="pokemonTypeColor-fighting"id="fightingBtn">Fighting</button>
+        <button class="pokemonTypeColor-poison"id="poisonBtn">Poison</button>
+        <button class="pokemonTypeColor-ground"id="groundBtn">Ground</button>
+        <button class="pokemonTypeColor-flying"id="flyingBtn">Flying</button>
+        <button class="pokemonTypeColor-psychic"id="psychicBtn">Psychic</button>
+        <button class="pokemonTypeColor-bug"id="bugBtn">Bug</button>
+        <button class="pokemonTypeColor-rock"id="rockBtn">Rock</button>
+        <button class="pokemonTypeColor-ghost"id="ghostBtn">Ghost</button>
+        <button class="pokemonTypeColor-dragon"id="dragonBtn">Dragon</button>
+        <button class="pokemonTypeColor-dark"id="darkBtn">Dark</button>
+        <button class="pokemonTypeColor-steel"id="steelBtn">Steel</button>
+        <button class="pokemonTypeColor-fairy"id="fairyBtn">Fairy</button>
       </aside>
       <main>
         <div id="miniContainer"></div>
